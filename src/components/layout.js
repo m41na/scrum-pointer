@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
+import AccessAlarmsIcon from '@material-ui/icons/AccessAlarms';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
+import Switch from '@material-ui/core/Switch';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 function Copyright() {
   return (
@@ -43,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
   toolbarTitle: {
     flexGrow: 1,
   },
+  icon: {
+    marginRight: theme.spacing(2),
+  },
   link: {
     margin: theme.spacing(1, 1.5),
   },
@@ -61,28 +67,40 @@ const useStyles = makeStyles((theme) => ({
 export default function StickyFooter() {
   const classes = useStyles();
 
+  const [state, setState] = useState({
+    light: true,
+  });
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
+          <AccessAlarmsIcon className={classes.icon} />
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-            Company name
+            Pointing
           </Typography>
           <nav>
             <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-              Features
-            </Link>
-            <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-              Enterprise
-            </Link>
-            <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-              Support
+              GitHub
             </Link>
           </nav>
-          <Button href="#" color="primary" variant="outlined" className={classes.link}>
-            Login
-          </Button>
+          <FormGroup row>
+            <FormControlLabel control={
+              <Switch
+                checked={state.light}
+                onChange={handleChange}
+                name="light"
+                color="primary"
+              />
+            }
+              label="Primary"
+            />
+          </FormGroup>
         </Toolbar>
       </AppBar>
       <Container component="main" className={classes.main} maxWidth="md">
