@@ -5,20 +5,28 @@
   "dependencies": {
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
+    "connect-timeout": "^1.9.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "md5": "^2.3.0",
+    "morgan": "^1.10.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
+    "react-scripts": "^4.0.3",
+    "sqlite3": "^5.0.2",
+    "web-vitals": "^2.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run build && PORT=8080 node server",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "npm run test:server -- --coverage && react-scripts test -u --coverage --watchAll=false",
+    "start:dev": "concurrently \"REACT_APP_START_SCRIPT=start:dev REACT_APP_MOCK_MODE=false react-scripts start\" \"PORT=5000 nodemon server\"",
+    "test:dev": "react-scripts test -u",
+    "lint:fix": "npx eslint --fix src server",
+    "eject": "react-scripts eject",
+    "test:server": "jest --config=jest.config.js",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -37,5 +45,21 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/react-hooks": "^7.0.0",
+    "@testing-library/user-event": "^13.1.9",
+    "concurrently": "^6.2.0",
+    "eslint": "^7.29.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.24.0",
+    "husky": "^6.0.0",
+    "jest": "^26.6.0",
+    "nodemon": "^2.0.8"
   }
 }

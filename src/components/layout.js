@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import AccessAlarmsIcon from '@material-ui/icons/AccessAlarms';
-import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
-import Switch from '@material-ui/core/Switch';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import React from 'react'
+import PropTypes from 'prop-types'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import HowToVoteIcon from '@material-ui/icons/HowToVote'
+import Container from '@material-ui/core/Container'
+import Link from '@material-ui/core/Link'
+import Switch from '@material-ui/core/Switch'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
-function Copyright() {
+function Copyright () {
   return (
     <Typography variant="body2" color="textSecondary">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Scrum Pointer
+        Pointer
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
-  );
+  )
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -29,60 +30,57 @@ const useStyles = makeStyles((theme) => ({
     ul: {
       margin: 0,
       padding: 0,
-      listStyle: 'none',
-    },
+      listStyle: 'none'
+    }
   },
   root: {
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '100vh',
+    minHeight: '100vh'
   },
   appBar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
+    borderBottom: `1px solid ${theme.palette.divider}`
   },
   toolbar: {
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   },
   toolbarTitle: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   icon: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   link: {
-    margin: theme.spacing(1, 1.5),
+    margin: theme.spacing(1, 1.5)
   },
   main: {
     marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(2)
   },
   footer: {
     padding: theme.spacing(3, 2),
     marginTop: 'auto',
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
-  },
-}));
+      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800]
+  }
+}))
 
-export default function StickyFooter() {
-  const classes = useStyles();
+export default function Layout ({ history, mode, toggleMode, children }) {
+  const classes = useStyles()
 
-  const [state, setState] = useState({
-    light: true,
-  });
-
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
+  const goHome = (e) => {
+    e.preventDefault()
+    history.push('/')
+  }
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
-          <AccessAlarmsIcon className={classes.icon} />
+          <HowToVoteIcon className={classes.icon} />
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-            Pointing
+            <Link href="#" onClick={goHome} >Pointer</Link>
           </Typography>
           <nav>
             <Link variant="button" color="textPrimary" href="#" className={classes.link}>
@@ -90,28 +88,12 @@ export default function StickyFooter() {
             </Link>
           </nav>
           <FormGroup row>
-            <FormControlLabel control={
-              <Switch
-                checked={state.light}
-                onChange={handleChange}
-                name="light"
-                color="primary"
-              />
-            }
-              label="Primary"
-            />
+            <FormControlLabel control={<Switch checked={mode} onChange={toggleMode} name="mode" />} label="Primary" />
           </FormGroup>
         </Toolbar>
       </AppBar>
-      <Container component="main" className={classes.main} maxWidth="md">
-        <Typography variant="h2" component="h1" gutterBottom>
-          Sticky footer
-        </Typography>
-        <Typography variant="h5" component="h2" gutterBottom>
-          {'Pin a footer to the bottom of the viewport.'}
-          {'The footer will move as the main element of the page grows.'}
-        </Typography>
-        <Typography variant="body1">Sticky footer placeholder.</Typography>
+      <Container component="main" className={classes.main} maxWidth="lg">
+        {children}
       </Container>
       <footer className={classes.footer}>
         <Container maxWidth="sm">
@@ -120,5 +102,15 @@ export default function StickyFooter() {
         </Container>
       </footer>
     </div>
-  );
+  )
+}
+
+Layout.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.func
+  ]),
+  history: PropTypes.object,
+  mode: PropTypes.bool,
+  toggleMode: PropTypes.func
 }
