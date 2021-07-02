@@ -14,6 +14,7 @@ const timeOut = process.env.TIME_OUT || 120000
 function initialize (expr) {
   expr.use(cors())
   expr.use(morgan('tiny'))
+  expr.use(express.json())
   expr.use(timeout(timeOut))
   expr.use(router)
   expr.use(express.static(path.join(__dirname, '../build')))

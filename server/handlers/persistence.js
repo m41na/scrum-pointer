@@ -1,5 +1,5 @@
 const {
-  initDB,
+  initialize,
   selectOne,
   selectMany,
   createUser
@@ -9,28 +9,52 @@ const initializeDB = async (req, res) => {
   console.log(req.params)
   const { token } = res.locals
   console.log(token)
-  return initDB()
+  await initialize()
+    .then(result => {
+      res.json(result)
+    })
+    .catch(err => {
+      res.status(400).send(err.message)
+    })
 }
 
 const selectSingle = async (req, res) => {
   console.log(req.params)
   const { token } = res.locals
   console.log(token)
-  return selectOne(req.params.query)
+  await selectOne(req.body.query, [req.params.id])
+    .then(result => {
+      res.json(result)
+    })
+    .catch(err => {
+      res.status(400).send(err.message)
+    })
 }
 
 const selectCollection = async (req, res) => {
   console.log(req.params)
   const { token } = res.locals
   console.log(token)
-  return selectMany(req.params.query)
+  selectMany(req.body.query)
+    .then(result => {
+      res.json(result)
+    })
+    .catch(err => {
+      res.status(400).send(err.message)
+    })
 }
 
 const createUserRecord = async (req, res) => {
   console.log(req.params)
   const { token } = res.locals
   console.log(token)
-  return createUser(req.params.params)
+  await createUser(req.body)
+    .then(result => {
+      res.json(result)
+    })
+    .catch(err => {
+      res.status(400).send(err.message)
+    })
 }
 
 module.exports = {
