@@ -36,13 +36,47 @@ describe('setting value inside state', () => {
     expect(result.current.state.errorMsg).toBe('we got issues')
   })
 
-  test('setReport should update the state', async () => {
+  test('setParty should update the state', async () => {
     const { result } = renderHook(useAppState)
 
     await act(async () => {
-      result.current.setReport({ one: 'one' })
+      result.current.setParty({
+        team: 'one',
+        participant: ['steve']
+      })
     })
 
-    expect(result.current.state.report.one).toBe('one')
+    expect(result.current.state.party).toMatchObject({
+      team: 'one',
+      participant: ['steve']
+    })
+  })
+
+  test('updateUsers should update the state', async () => {
+    const { result } = renderHook(useAppState)
+
+    await act(async () => {
+      result.current.setState(initialData)
+    })
+
+    await act(async () => {
+      result.current.updateUsers(['one', 'two'])
+    })
+
+    expect(result.current.state.users).toMatchObject(['one', 'two'])
+  })
+
+  test('updateTeams should update the state', async () => {
+    const { result } = renderHook(useAppState)
+
+    await act(async () => {
+      result.current.setState(initialData)
+    })
+
+    await act(async () => {
+      result.current.updateTeams(['teamA', 'teamB'])
+    })
+
+    expect(result.current.state.teams).toMatchObject(['teamA', 'teamB'])
   })
 })

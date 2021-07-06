@@ -15,9 +15,9 @@ export default (initialState) => {
     state = { ...state, error: true, errorMsg: message }
   }
 
-  const setReport = (report) => {
+  const setParty = (report) => {
     state = { ...state, report }
   }
 
-  return { state, setState, setValue, setError, setReport }
+  return { state, setState, setValue, setError, setParty }
 }

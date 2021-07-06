@@ -7,16 +7,21 @@ export const initialData = {
   loadingMsg: 'Loading...',
   error: false,
   errorMsg: '',
-  report: null
+  users: [],
+  teams: [],
+  party: {
+    team: null,
+    participants: []
+  }
 }
 
 export const AppContext = createContext()
 
 export const AppProvider = ({ children }) => {
-  const { state, setState, setValue, setError, setReport } = useAppState(initialData)
+  const appState = useAppState(initialData)
 
   return (
-    <AppContext.Provider value={{ state, setState, setError, setReport, setValue }}>
+    <AppContext.Provider value={{ ...appState }}>
       {children}
     </AppContext.Provider>
   )

@@ -7,13 +7,13 @@ import mockState from '../../__mock__/mockState'
 const mockContext = mockState(initialData)
 
 const TestComponent = () => {
-  const { state, setState, setValue, setError, setReport } = useMemo(() => mockContext, [mockContext.state])
+  const { state, setState, setValue, setError, setParty } = useMemo(() => mockContext, [mockContext.state])
   return (
         <div data-testid="test-component">
             <button data-testid="setState" onClick={() => setState({ ...state, event: 'setState clicked' })}>Set State</button>
             <button data-testid="setValue" onClick={() => setValue('event', 'setValue clicked')}>Set Value</button>
             <button data-testid="setError" onClick={() => setError('set Error clicked')}>Set Error</button>
-            <button data-testid="setReport" onClick={() => setReport({ one: 'one', two: 'two' })}>Set Report</button>
+            <button data-testid="setParty" onClick={() => setParty({ one: 'one', two: 'two' })}>Set Report</button>
             <p data-testid='display-event'>{state.event}</p>
             <p data-testid='display-error'>{state.errorMsg}</p>
             <p data-testid='display-report'>{state.report ? `${state.report.one} or ${state.report.two}` : 'empty'}</p>

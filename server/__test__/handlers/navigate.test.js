@@ -1,6 +1,6 @@
 const { landingPage } = require('../../handlers/navigate')
-const mockRequest = require('../mocks/request')
-const mockResponse = require('../mocks/response')
+const mockRequest = require('../../__mock__/request')
+const mockResponse = require('../../__mock__/response')
 
 describe('test navigation functions', () => {
   const request = mockRequest()
@@ -10,6 +10,6 @@ describe('test navigation functions', () => {
     landingPage(request, response)
 
     expect(response.sendFile).toHaveBeenCalledTimes(1)
-    expect(response.sendFile.mock.results[0].value).toContain('build/index.html')
+    expect(response.sendFile.mock.results[0].value).toContain('index.html')
   })
 })

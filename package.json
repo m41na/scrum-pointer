@@ -18,10 +18,10 @@
     "web-vitals": "^2.0.1"
   },
   "scripts": {
-    "start": "npm run build && PORT=8080 node server",
+    "start": "npm run build && set PORT=8080 && node server",
     "build": "react-scripts build",
     "test": "npm run test:server -- --coverage && react-scripts test -u --coverage --watchAll=false",
-    "start:dev": "concurrently \"REACT_APP_START_SCRIPT=start:dev REACT_APP_MOCK_MODE=false react-scripts start\" \"PORT=5000 nodemon server\"",
+    "start:dev": "concurrently \"REACT_APP_START_SCRIPT=start:dev REACT_APP_MOCK_MODE=false react-scripts start\" \"set PORT=5000 && nodemon server\"",
     "test:dev": "react-scripts test -u",
     "lint:fix": "npx eslint --fix src server",
     "eject": "react-scripts eject",

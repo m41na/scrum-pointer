@@ -1,5 +1,5 @@
-const mockRequest = require('../mocks/request')
-const mockResponse = require('../mocks/response')
+const mockRequest = require('../../__mock__/request')
+const mockResponse = require('../../__mock__/response')
 
 jest.mock('../../config/jwtAuth', () => ({
   jwt: {

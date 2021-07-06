@@ -12,9 +12,17 @@ export default (initialData) => {
     setState({ ...state, error, errorMsg })
   }
 
-  const setReport = (report) => {
-    setState({ ...state, report })
+  const setParty = (party) => {
+    setState({ ...state, party })
   }
 
-  return { state, setState, setValue, setError, setReport }
+  const updateUsers = (user) => {
+    setState({ ...state, users: [...state.users, ...user] })
+  }
+
+  const updateTeams = (team) => {
+    setState({ ...state, teams: [...state.teams, ...team] })
+  }
+
+  return { state, setState, setValue, setError, setParty, updateUsers, updateTeams }
 }
